@@ -1,1 +1,3 @@
-# 1030510695_BS435_WebProgramlama
+Öğrenci Numarası: 1030510695
+Öğrenci Adı: Taha FIRAT
+Ders Adı: BS435 Web Programlama
