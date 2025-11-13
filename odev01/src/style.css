@@ -1,3 +1,4 @@
+/* === TEMALAR === */
 :root { 
   --bg: #0b0d10; 
   --fg: #eaeef3; 
@@ -5,6 +6,17 @@
   --muted: #9aa7b2;
   --accent: #6ea8fe;
 }
+
+/* Light tema */
+:root[data-theme='light'] {
+  --bg: #f3f4f6; 
+  --fg: #0b0d10; 
+  --card: #ffffff; 
+  --muted: #4b5563;
+  --accent: #2563eb;
+}
+
+/* ===================================== */
 
 * {
   box-sizing: border-box;
@@ -54,6 +66,7 @@ main {
   gap: 10px;
 }
 
+/* === BUTONLAR === */
 .btn {
   background: var(--card);
   border: 1px solid #263244;
@@ -61,14 +74,34 @@ main {
   padding: 8px 12px;
   border-radius: 10px;
   cursor: pointer;
+  transition: 0.2s;
 }
 
+.btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* Tema butonu için secondary */
+.btn.secondary {
+  background: transparent;
+  border: 1px dashed var(--muted);
+  color: var(--muted);
+}
+
+.btn.secondary:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* === KARTLAR / OYUN GRID === */
 .board {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 12px;
 }
 
+/* kartın ana hali */
 .card {
   background: var(--card);
   border: 0;
@@ -76,8 +109,16 @@ main {
   border-radius: 10px;
   overflow: hidden;
   cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
+/* hover efekti */
+.card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+}
+
+/* kart resmi */
 .card img {
   width: 100%;
   height: 220px;
@@ -85,17 +126,26 @@ main {
   display: block;
 }
 
-
+/* seçilen kart görünümü */
 .card.selected {
   border: 2px solid var(--accent);
-  transform: scale(0.97);
-  transition: 0.15s;
+  transform: scale(0.96);
+  animation: selectPulse 0.3s ease;
 }
 
+/* seçili olmayan kart hover */
 .card:not(.selected):hover {
   opacity: 0.9;
 }
 
+/* seçili animasyonu */
+@keyframes selectPulse {
+  0% { transform: scale(0.96); }
+  50% { transform: scale(1.02); }
+  100% { transform: scale(0.96); }
+}
+
+/* === RESPONSIVE === */
 @media (max-width: 800px) {
   .board {
     grid-template-columns: 1fr;
