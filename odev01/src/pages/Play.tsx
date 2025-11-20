@@ -1,86 +1,54 @@
+import { useGame } from '../store/game'
 import { useState } from 'react'
 
 export default function Play() {
-
-  const rounds = [
-    {
-      images: [
-        { url: 'https://picsum.photos/seed/r1a/800/600', isAI: false },
-        { url: 'https://picsum.photos/seed/r1b/800/600', isAI: true }, 
-        { url: 'https://picsum.photos/seed/r1c/800/600', isAI: false }
-      ]
-    },
-    {
-      images: [
-        { url: 'https://picsum.photos/seed/r2a/800/600', isAI: false },
-        { url: 'https://picsum.photos/seed/r2b/800/600', isAI: false },
-        { url: 'https://picsum.photos/seed/r2c/800/600', isAI: true } 
-      ]
-    },
-    {
-      images: [
-        { url: 'https://picsum.photos/seed/r3a/800/600', isAI: false },
-        { url: 'https://picsum.photos/seed/r3b/800/600', isAI: true }, 
-        { url: 'https://picsum.photos/seed/r3c/800/600', isAI: false }
-      ]
-    }
-  ]
-
-  const [roundIndex, setRoundIndex] = useState(0)  
-  const [score, setScore] = useState(0)            
+  const { rounds, roundIndex, score, started, start, choose, reset } = useGame()
   const [selected, setSelected] = useState<number | null>(null)
+  const isOver = roundIndex >= rounds.length
+  const current = rounds[roundIndex]
 
-  const currentRound = rounds[roundIndex]
-  const isGameOver = roundIndex >= rounds.length
-
-  function handlePick(i: number) {
-    if (isGameOver) return
-    setSelected(i)
-
-    const picked = currentRound.images[i]
-    if (picked.isAI) {
-      setScore(s => s + 1)
-    }
-
-    setTimeout(() => {
-      setSelected(null)
-      setRoundIndex(r => r + 1)
-    }, 600)
-  }
-
-  if (isGameOver) {
+  if (!started)
     return (
       <section className="stack">
-        <h2>Oyun bitti ✅</h2>
-        <p>Toplam skorun: {score} / {rounds.length}</p>
-        <button className="btn" onClick={() => {
-          setRoundIndex(0)
-          setScore(0)
-          setSelected(null)
-        }}>
-          Yeniden Oyna
-        </button>
+        <h2>AI Hunter</h2>
+        <p>Hangisi AI tarafından üretilmiş?</p>
+        <button className="btn" onClick={start}>Başla</button>
       </section>
     )
+
+  if (isOver)
+    return (
+      <section className="stack">
+        <h2>Oyun Bitti 🎯</h2>
+        <p>Toplam skorun: {score} / {rounds.length}</p>
+        <button className="btn" onClick={reset}>Yeniden Başla</button>
+      </section>
+    )
+
+  const handleClick = (i: number) => {
+    setSelected(i)
+    setTimeout(() => {
+      setSelected(null)
+      choose(i)
+    }, 600)
   }
 
   return (
     <section className="stack">
-      <h2>Oyun (Hafta 3 - skor & tur)</h2>
+      <h2>Tur {roundIndex + 1} / {rounds.length}</h2>
       <div>Skor: {score}</div>
 
       <div className="board">
-        {currentRound.images.map((img, i) => (
+        {current.images.map((img, i) => (
           <button
             key={i}
             className={`card ${selected === i ? 'selected' : ''}`}
-            onClick={() => handlePick(i)}
+            onClick={() => handleClick(i)}
           >
-            <img src={img.url} alt="img" />
+            <img src={img.url} alt={`img-${i}`} />
           </button>
         ))}
       </div>
     </section>
   )
 }
-
