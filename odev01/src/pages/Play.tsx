@@ -4,6 +4,7 @@ import { useState } from 'react'
 export default function Play() {
   const { rounds, roundIndex, score, started, start, choose, reset } = useGame()
   const [selected, setSelected] = useState<number | null>(null)
+
   const isOver = roundIndex >= rounds.length
   const current = rounds[roundIndex]
 
