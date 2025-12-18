@@ -154,3 +154,10 @@ main {
     height: 200px;
   }
 }
+.card.correct {
+  border: 2px solid #4ade80;
+}
+
+.card.wrong {
+  border: 2px solid #f87171;
+}

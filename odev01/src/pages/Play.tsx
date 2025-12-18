@@ -4,6 +4,7 @@ import { useState } from 'react'
 export default function Play() {
   const { rounds, roundIndex, score, started, start, choose, reset } = useGame()
   const [selected, setSelected] = useState<number | null>(null)
+  const [result, setResult] = useState<'correct' | 'wrong' | null>(null)
 
   const isOver = roundIndex >= rounds.length
   const current = rounds[roundIndex]
@@ -27,11 +28,15 @@ export default function Play() {
     )
 
   const handleClick = (i: number) => {
+    const picked = current.images[i]
     setSelected(i)
+    setResult(picked.isAI ? 'correct' : 'wrong')
+
     setTimeout(() => {
       setSelected(null)
+      setResult(null)
       choose(i)
-    }, 600)
+    }, 700)
   }
 
   return (
@@ -43,7 +48,10 @@ export default function Play() {
         {current.images.map((img, i) => (
           <button
             key={i}
-            className={`card ${selected === i ? 'selected' : ''}`}
+            className={`card 
+              ${selected === i ? 'selected' : ''} 
+              ${selected === i && result ? result : ''}
+            `}
             onClick={() => handleClick(i)}
           >
             <img src={img.url} alt={`img-${i}`} />
