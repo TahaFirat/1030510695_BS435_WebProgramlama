@@ -1,0 +1,136 @@
+.image-card {
+    position: relative;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    cursor: pointer;
+    transition: var(--transition);
+    background: var(--glass-bg);
+    border: 2px solid var(--glass-border);
+    animation: scaleIn 0.4s ease-out;
+}
+
+.image-card:hover {
+    transform: translateY(-8px);
+    border-color: var(--primary);
+    box-shadow: 0 12px 40px rgba(99, 102, 241, 0.4);
+}
+
+.image-card.disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    filter: grayscale(1);
+}
+
+.image-card.disabled:hover {
+    transform: none;
+    border-color: var(--glass-border);
+    box-shadow: none;
+}
+
+.image-card.correct {
+    border-color: var(--success);
+    box-shadow: 0 0 30px rgba(34, 197, 94, 0.5);
+    animation: correctPulse 0.6s ease-out;
+}
+
+.image-card.wrong {
+    opacity: 0.6;
+    filter: grayscale(0.5);
+}
+
+@keyframes correctPulse {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.image-wrapper {
+    position: relative;
+    width: 100%;
+    padding-top: 100%;
+    overflow: hidden;
+}
+
+.image-wrapper img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: var(--transition);
+}
+
+.image-card:hover .image-wrapper img {
+    transform: scale(1.1);
+}
+
+.image-card.disabled .image-wrapper img,
+.image-card.wrong .image-wrapper img {
+    transform: scale(1);
+}
+
+.result-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.4s ease-out;
+}
+
+.result-badge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    animation: scaleIn 0.5s ease-out;
+}
+
+.result-badge span {
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: var(--success);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.image-number {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 40px;
+    height: 40px;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(10px);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--text-primary);
+    z-index: 2;
+}
+
+@media (max-width: 768px) {
+    .image-card:hover {
+        transform: translateY(-4px);
+    }
+
+    .result-badge span {
+        font-size: 1rem;
+    }
+}

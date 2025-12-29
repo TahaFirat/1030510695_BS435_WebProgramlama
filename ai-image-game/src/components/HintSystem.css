@@ -1,0 +1,73 @@
+.hint-system {
+    margin-top: 2rem;
+    animation: slideIn 0.4s ease-out;
+}
+
+.hint-content {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(251, 191, 36, 0.1) 100%);
+    border: 1px solid rgba(245, 158, 11, 0.3);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+    position: relative;
+}
+
+.hint-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.hint-icon {
+    font-size: 2rem;
+    animation: pulse 2s infinite;
+}
+
+.hint-header h3 {
+    flex: 1;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--warning);
+}
+
+.hint-close {
+    width: 32px;
+    height: 32px;
+    background: rgba(245, 158, 11, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--warning);
+    transition: var(--transition);
+}
+
+.hint-close:hover {
+    background: rgba(245, 158, 11, 0.3);
+    transform: rotate(90deg);
+}
+
+.hint-text {
+    color: var(--text-secondary);
+    font-size: 1.05rem;
+    line-height: 1.7;
+    margin: 0;
+}
+
+@media (max-width: 768px) {
+    .hint-content {
+        padding: 1.25rem;
+    }
+
+    .hint-icon {
+        font-size: 1.5rem;
+    }
+
+    .hint-header h3 {
+        font-size: 1.1rem;
+    }
+
+    .hint-text {
+        font-size: 0.95rem;
+    }
+}
